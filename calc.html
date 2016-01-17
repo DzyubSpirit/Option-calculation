@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Я знаю: ты - лентяй!</title>
+    <script>
+      window.onload = function() {
+        console.log('Если ты это читаешь, то ты входишь в 5% населения Земли, которые умны настолько, чтобы смотреть на суть вещей, а не на их внешний вид.');
+        console.log('Вот тебе картинка девушки в красном :)');
+        var height = 7;
+        var width = 7;
+        var mat = Array(height);
+        for (var i = 0; i < height; i++) {
+          mat[i] = Array(width);
+        }
+        function myRandom(min, max) {
+          return min + Math.floor(Math.random()*(max+1-min));
+        }
+        var minCount = 3;
+        var maxCount = 15;
+        var minLength = 2;
+        var maxLength = 5;
+        var decCount = myRandom(minCount, maxCount);
+        for (var i = 0; i < decCount; i++) {
+          var decLength = myRandom(minLength, maxLength);
+          var decX = myRandom(0,width-1);
+          var decY = myRandom(0, height-decLength);
+          for (j = 0; j < decLength; j++) {
+            mat[decY+j][decX] = 1;
+          }
+        }
+        var output = '';
+        for (var i = 0; i < height; i++) {
+          for (var j = 0; j < width; j++) {
+            if (mat[i][j] === 1) {
+              output += '1';
+            } else {
+              output += '0';
+            }
+          }
+          output += '\n';
+        }
+        console.log(output);
+
+        var likes = document.getElementsByClassName('like');
+        [].forEach.call(likes, function(el) {
+          el.onclick = function() {
+            if (this.classList.contains('like-hover')) {
+              alert('Убрать лайк уже нельзя. Му-ха-ха-ха!');
+              return;
+            }
+            this.classList.add('like-hover');
+          }
+        });
+
+        var donates = document.getElementsByClassName('exactly-donate');
+        [].forEach.call(donates, function(el) {
+          el.onclick = function() {
+            alert('Номер карты: 5168 7572 0270 5135\nЗанимать деньги: 8-800-555-35-35, мужик в красной футболке');
+          }
+        });
+
+        var zachetkaNumberInput = document.getElementById("zachetkaNumberInput");
+        var buttonCalc = document.getElementById("buttonCalc");
+        var resultTable = document.getElementById("resultTable");
+
+        buttonCalc.onclick = function() {
+          var n = +zachetkaNumberInput.value;
+          resultTable.innerHTML = "";
+          for (var i = 0; i <= 53; i++) {
+            var tr = document.createElement('tr');
+
+            var td = document.createElement('td');
+            td.innerHTML = 'i='+i;
+            tr.appendChild(td);
+
+            td = document.createElement('td');
+            td.innerHTML = 1 + ((7*n + 11*i) % 54);
+            tr.appendChild(td);
+
+            resultTable.appendChild(tr);
+          }
+        }
+      }
+    </script>
+
+    <style>
+      table {
+        border-spacing: 0;
+      }
+      #resultTable td {
+        border: 1px solid black;
+        padding: 3px;
+      }
+
+      .donate {
+        float: right;
+        /*border: 1px solid black;*/
+      }
+
+      .donate div:first-child {
+        margin-bottom: 10px;
+      }
+
+      .donate-features {
+        display: table;
+        width: 100%;
+      }
+      .donate-features > div {
+        display: table-cell;
+      }
+
+      .donate-features > div > div:first-of-type {
+        text-align: center;
+      }
+
+      .donate-features > div > div:nth-of-type(2) {
+        margin: auto;
+        background-repeat: no-repeat;
+        background-size: contain;
+        height: 100px;
+        width: 100px;
+      }
+
+      .like {
+        background-image: url('Facebook-Like.png');
+        transition: transform 1s;
+        transform: rotate(90deg);
+      }
+
+      .like:hover, .like-hover {
+        transform: rotate(0deg);
+        -webkit-filter: drop-shadow(0 0 7px rgba(0,0,128,0.5));
+        filter: drop-shadow(0 0 7px rgba(0,0,128,0.5));
+      }
+
+      .exactly-donate {
+        /*background-color: red;*/
+        background-image: url('Donat.png');
+        transform-origin: top;
+        transform: scale(1.4);
+      }
+
+      .exactly-donate:hover {
+        -webkit-filter: drop-shadow(0 0 3px rgba(128,128,0,0.5));
+        filter: drop-shadow(0 0 3px rgba(128,128,0,0.5));
+      }
+      /** {
+        border: 1px solid black;
+      }*/
+    </style>
+  </head>
+  <body>
+    <div class="donate">
+      <div>
+        Если тебе помог или просто понравился этот сайт, то ты можешь:
+      </div>
+      <div class="donate-features">
+        <div class="like-cell">
+          <div class="like-header">Поставить лайк</div>
+          <div class="like">
+          </div>
+        </div>
+        <div class="like-cell">
+          <div class="like-header">Добавить чет свое</div>
+          <div>
+            <a target="_blank" href="https://github.com/DzyubSpirit/Option-calculation">Ссылка на гитхаб</a>
+          </div>
+        </div>
+        <div class="like-cell">
+          <div class="like-header">Задонатить на донат</div>
+          <div class="exactly-donate">
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <form>
+      <input type="text" placeholder="4206" id="zachetkaNumberInput" />
+      <button type="button" id="buttonCalc">Calc</button>
+    </form>
+    <table id="resultTable">
+    </table>
+  </body>
+</html>
